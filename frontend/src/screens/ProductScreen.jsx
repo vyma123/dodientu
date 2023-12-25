@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
-import {   useParams } from "react-router-dom";
+import {  useState } from "react";
+import {   useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {Form, Row,Col,Image,ListGroup,Card,Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import {addToCart} from '../slices/cartSlice'
 import Message from "../components/Message";
 
 const ProductScreen = () => {
    
     const {id:productId} = useParams();
 
-    const [qty,setQty] = useState(1);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const [qty,setQty] = useState(1);
+    
+    
     const {data:product,isLoading,error} = useGetProductDetailsQuery(productId);
+
+    const addToCartHandler = () => {
+      dispatch(addToCart({...product, qty}));
+      navigate('/cart')
+    } 
    
 
   return (
@@ -57,7 +68,7 @@ const ProductScreen = () => {
           </ListGroup.Item>
            <ListGroup.Item>
              <Row>
-              <Col>Status:</Col>
+              <Col>Tình trạng:</Col>
               <Col>
               <strong>{product.countInStock > 0 ? 'Trong kho': 'Hết hàng' }</strong>
               </Col>
@@ -66,7 +77,7 @@ const ProductScreen = () => {
           {product.countInStock > 0 && (
             <ListGroup.Item>
               <Row>
-                <Col>Qty</Col>
+                <Col>Số lượng</Col>
                 <Col>
                 <Form.Control 
                 as='select'
@@ -85,7 +96,9 @@ const ProductScreen = () => {
             </ListGroup.Item>
           )}
           <ListGroup.Item>
-            <Button className="btn-block" type="button" disabled={product.countInStock === 0}>
+            <Button className="btn-block" type="button" disabled={product.countInStock === 0}
+            onClick={addToCartHandler}
+            >
               Thêm vào giỏ hàng
             </Button>
           </ListGroup.Item>
