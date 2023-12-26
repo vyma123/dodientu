@@ -70,7 +70,7 @@ const ProductScreen = () => {
              <Row>
               <Col>Tình trạng:</Col>
               <Col>
-              <strong>{product.countInStock > 0 ? 'Trong kho': 'Hết hàng' }</strong>
+              <strong>{product.countInStock > 0 ? 'Còn hàng': 'Hết hàng' }</strong>
               </Col>
              </Row>
           </ListGroup.Item>
