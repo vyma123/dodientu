@@ -67,7 +67,19 @@ const Header = () => {
                 <Nav.Link href="/login"><FaUser/> Đăng Nhập</Nav.Link>
               </LinkContainer>
               )}
-             
+             {userInfo && userInfo.isAdmin && (
+              <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/productlist'>
+                  <NavDropdown.Item>Quản lý sản phẩm</NavDropdown.Item>
+                </LinkContainer>
+                  <LinkContainer to='/admin/userlist'>
+                  <NavDropdown.Item>Quản lý người dùng</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/admin/orderlist'>
+                  <NavDropdown.Item>Quản lý đơn hàng</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+             )}
             </Nav>
             </Navbar.Collapse>
         </Container>
