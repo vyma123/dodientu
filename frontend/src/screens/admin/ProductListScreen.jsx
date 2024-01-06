@@ -19,6 +19,7 @@ const ProductListScreen = () => {
         if(window.confirm('xác nhận xóa')) {
             try {
                 await deleteProduct(id);
+                toast.success('đã xóa sản phẩm');
                 refetch();
             } catch (err) {
                 toast.error(err?.data?.message || err.error);
