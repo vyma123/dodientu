@@ -126,7 +126,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   if(user) {
     if(user.isAdmin){
       res.status(400);
-      throw new Error('Cannot delete admin user');
+      throw new Error('không thể xóa admin user');
     }
     await User.deleteOne({_id: user._id});
     res.status(200).json({message: 'Xóa người dùng thành công'});
